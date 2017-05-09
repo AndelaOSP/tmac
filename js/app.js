@@ -43,16 +43,37 @@ btnGoogle.addEventListener( 'click', e => {
 btnCheckin.addEventListener('click', e => {
     var database = firebase.database();
     var ref = database.ref('mac');
-    var mac = user.uid;
-    const preObject = document.getElementById('tmac');
-    const dbRefObject = firebase.database().ref().child(mac);
-    const dbRefItem = dbRefObject.child('macid');
+    var userid = user.uid;
+    const macid = document.getElementById('tmac').innerHTML;
     var data = {
-        uid : mac,
-        macid : dbRefItem,
+        uid : userid,
+        macid : macid,
         checkin : Date.now()
     }
     ref.push(data);
+    console.log(mac);
+    btnCheckin.classList.remove('btn-warning')
+    btnCheckin.classList.add('btn-success')
+    btnCheckout.classList.remove('btn-success')
+    btnCheckout.classList.add('btn-warning')
+});
+
+btnCheckout.addEventListener('click', e => {
+    var database = firebase.database();
+    var ref = database.ref('mac');
+    var userid = user.uid;
+    const macid = document.getElementById('tmac').innerHTML;
+    var data = {
+        uid : userid,
+        macid : macid,
+        checkout : Date.now()
+    }
+    ref.push(data);
+    console.log(mac);
+    btnCheckin.classList.remove('btn-success')
+    btnCheckin.classList.add('btn-warning')
+    btnCheckout.classList.remove('btn-warning')
+    btnCheckout.classList.add('btn-success')
 });
 
 
