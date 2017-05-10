@@ -15,6 +15,9 @@ const btnGoogle = document.getElementById('google-button');
 const btnCheckin = document.getElementById('check-in');
 const btnCheckout = document.getElementById('check-out');
 const btnProfile = document.getElementById('profile');
+const txtTMACID = document.getElementById('tmacid');
+const btnUpdate = document.getElementById('update');
+const btnCancel = document.getElementById('cancel');
 var user = '';
 // Adding login event
 btnLogin.addEventListener('click', e => {
@@ -76,6 +79,31 @@ btnCheckout.addEventListener('click', e => {
     btnCheckout.classList.add('btn-success')
 });
 
+btnProfile.addEventListener('click', e => {
+    btnCancel.classList.remove('hide')
+    btnUpdate.classList.remove('hide')
+    txtTMACID.classList.remove('hide')
+});
+
+btnUpdate.addEventListener('click', e => {
+
+    var database = firebase.database();
+    var ref = database.ref('users');
+    var userid = user.uid;
+    const macid = document.getElementById('tmacid').value;   
+
+    ref.child(userid).set({MACID: macid,});
+    btnCancel.classList.add('hide')
+    btnUpdate.classList.add('hide')
+    txtTMACID.classList.add('hide')
+});
+
+btnCancel.addEventListener('click', e => {
+    btnCancel.classList.add('hide')
+    btnUpdate.classList.add('hide')
+    txtTMACID.classList.add('hide')
+});
+    
 
 function authAction(){
     firebase.auth.signInWithPopup(provider).then(function(result) {
@@ -85,7 +113,6 @@ function authAction(){
       toast(error.message);
     });                    
   }
-
 
 
 btnLogout.addEventListener('click', e => {
@@ -102,12 +129,14 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
     btnCheckin.classList.remove('hide')
     btnCheckout.classList.remove('hide')
     btnProfile.classList.remove('hide')
+    btnCancel.classList.add('hide')
+    btnUpdate.classList.add('hide')
+    txtTMACID.classList.add('hide')
     user = firebaseUser
     mac = user.uid
     const preObject = document.getElementById('tmac');
-    const preUid = document.getElementById('userid');
-    const dbRefObject = firebase.database().ref().child(mac);
-    const dbRefItem = dbRefObject.child('macid');
+    const dbRefObject = firebase.database().ref().child('users');
+    const dbRefItem = dbRefObject.child(mac).child('MACID');
     dbRefItem.on('value', snap => preObject.innerText = snap.val());
   }else{
     console.log('not logged');
@@ -117,5 +146,8 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
     btnCheckin.classList.add('hide')
     btnCheckout.classList.add('hide')
     btnProfile.classList.add('hide')
+    btnCancel.classList.add('hide')
+    btnUpdate.classList.add('hide')
+    txtTMACID.classList.add('hide')
   }
 });
