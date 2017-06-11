@@ -48,12 +48,13 @@ btnCheckin.addEventListener('click', e => {
     var ref = database.ref('mac');
     var userid = user.uid;
     const macid = document.getElementById('tmac').innerHTML;
-    const now = new Date()
+    const now = Date()
+ç
     var data = {
         uid : userid,
         macid : macid,
         action : 'checkin',
-        time : now.getDay()
+        time : now
     }
     ref.push(data);
     console.log(mac);
