@@ -18,36 +18,28 @@ const txtPassword = document.getElementById('inputPassword');
 
 
 btnLogin.addEventListener('click', e => {
-
   const auth_guard = guardApp.auth();
-  // const auth = firebase.auth();
-  //sign in
   const email = document.getElementById('inputEmail').value;
   const password = document.getElementById('inputPassword').value;
-
   const promise = guardApp.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
-  // Handle Errors here.
   var errorCode = error.code;
   var errorMessage = error.message;
-  // ...
   });
   promise.catch(e => console.log(errorMessage));
 });
 
 
 btnLogout.addEventListener('click', e => {
-  // get email and password
   guardApp.auth().signOut();
 });
 
-// Add Event Listener
+
 guardApp.auth().onAuthStateChanged(firebaseUser => {
   if(firebaseUser) {
     tblChecks.classList.remove('hide')
     btnLogout.classList.remove('hide')
     frmLogin.classList.add('hide')
-    user = firebaseUser
-    mac = user.uid
+    
     const table = document.getElementById('user');
     const dbRefObject = guardApp.database().ref().child('mac').orderByKey();
     dbRefObject.on("value", function(snapshot) {
@@ -58,9 +50,11 @@ guardApp.auth().onAuthStateChanged(firebaseUser => {
       var cell2 = row.insertCell(1);
       var cell3 = row.insertCell(2);
       var cell4 = row.insertCell(3);
-      cell1.innerHTML = childData.uid
+      cell1.innerHTML = childData.uid;
       cell2.innerHTML = childData.macid;
-      cell3.innerHTML = 
+      cell3.innerHTML = childData.action;
+      const actual_time = childData.time;
+      cell4.innerHTML = actual_time;
       console.log(childData.uid)
     });
 });
