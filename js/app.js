@@ -48,11 +48,22 @@ btnCheckin.addEventListener('click', e => {
     var ref = database.ref('mac');
     var userid = user.uid;
     const macid = document.getElementById('tmac').innerHTML;
+    var time = Date.now();
+    var date_year = time.getYear();
+    var date_month = time.getMonth();
+    var date_day = time.getDay();
+    var time_hours = time.getHours();
+    var time_minutes = time.getMinutes();
+    var time_seconds = time.getSeconds();
     var data = {
         uid : userid,
         macid : macid,
-        checkin : Date.now()
+        checkin : Date.now(),
+        action : 'checkin',
+        date : date_day+"/"+date_month+"/"+date_year,
+        time : time_hours+":"+time_minutes+":"+time_seconds
     }
+
     ref.push(data);
     console.log(mac);
     btnCheckin.classList.remove('btn-warning')
@@ -66,11 +77,21 @@ btnCheckout.addEventListener('click', e => {
     var ref = database.ref('mac');
     var userid = user.uid;
     const macid = document.getElementById('tmac').innerHTML;
+    var time = Date.now();
+    var date_year = time.getYear();
+    var date_month = time.getMonth();
+    var date_day = time.getDay();
+    var time_hours = time.getHours();
+    var time_minutes = time.getMinutes();
+    var time_seconds = time.getSeconds();
     var data = {
-        uid : userid,
-        macid : macid,
-        checkout : Date.now()
+         uid : userid,
+         macid : macid,
+         action : 'checkout',
+         date : date_day+"/"+date_month+"/"+date_year,
+         time : time_hours+":"+time_minutes+":"+time_seconds
     }
+    
     ref.push(data);
     console.log(mac);
     btnCheckin.classList.remove('btn-success')
