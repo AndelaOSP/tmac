@@ -49,6 +49,7 @@ btnCheckin.addEventListener('click', e => {
     var userid = user.uid;
     const macid = document.getElementById('tmac').innerHTML;
     const now = Date()
+
     var data = {
         uid : userid,
         macid : macid,
