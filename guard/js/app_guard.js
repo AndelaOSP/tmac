@@ -64,12 +64,14 @@ guardApp.auth().onAuthStateChanged(firebaseUser => {
       const btnSuccess = document.getElementById('btn-success');
       const btnReject = document.getElementById('btn-reject');
 
-      btnSuccess.addEventListener('click', e => {
+      btnSuccess.addEventListener('click', e => { 
+        childSnapshot.ref.update({ guard_action: "Accepted", action_time:Date() })
         console.log("Success was clicked")
       });
 
       btnReject.addEventListener('click', e => {
-         console.log("Reject was clicked")
+        childSnapshot.ref.update({ guard_action: "Rejected", action_time:Date() })
+        console.log("Reject was clicked")
       });
       console.log(childData.uid)
     });

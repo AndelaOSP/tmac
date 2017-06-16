@@ -73,7 +73,7 @@ btnCheckout.addEventListener('click', e => {
         uid : userid,
         macid : macid,
         action : "checkout",
-        time : Date.now()
+        time : now
     }
     ref.push(data);
     console.log(mac);
