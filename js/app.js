@@ -68,6 +68,7 @@ btnCheckout.addEventListener('click', e => {
     var database = firebase.database();
     var ref = database.ref('mac');
     var userid = user.uid;
+    const now = Date()
     const macid = document.getElementById('tmac').innerHTML;
     var data = {
         uid : userid,
